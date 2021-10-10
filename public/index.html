@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>Push通知サンプル</title>
+  <!-- Include manifest -->
+  <!-- <link rel="manifest" href="manifest.json"> -->
+</head>
+
+<body>
+  <h1>Push通知サンプル</h1>
+
+  <div id="install-svcw" style="display:none;">
+    Service Workerは登録されていません。
+    <button id="install_svcworker">登録</button>
+  </div>
+  <div id="uninstall-svcw" style="display:none;">
+    Service Workerを登録済みです。
+    <button id="uninstall_svcworker">登録解除</button>
+
+    <p>curlテスト用コマンド(Service Worker登録後、curlでメッセージを送信できます)</p>
+    <div style="word-break: break-all;border: 1px solid black;margin: 6px;padding:6px;">
+      <code class="js-subscription-json"></code>
+    </div>
+
+    <div>
+      <form action="/api/registEndpoint" method="post" target="_blank">
+        <input type="hidden" name="endpoint" id="endpoint" />
+        <button type="submit">push送信画面を開く</button>
+        ※EndPointの情報をサーバに送信後、メッセージ入力画面を開く
+      </form>
+    </div>
+  </div>
+</body>
+
+<script src="./index.js"></script>
+</html>
