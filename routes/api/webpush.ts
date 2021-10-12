@@ -1,7 +1,6 @@
 import express from 'express';
 import webPush from 'web-push';
-import path from 'path';
-import vapidKey from '../../vapidKey.json';
+import vapidKey from '../../vapidKey.json'; // キーペア
 
 var router = express.Router();
 
