@@ -4,6 +4,11 @@ window.addEventListener('load', async (event) => {
     .addEventListener('click', sendPushMessage);
 });
 
+/**
+ * Push通知送信ボタン
+ *   /api/sendMessage にメッセージを送信する
+ * @param {*} event
+ */
 const sendPushMessage = async (event) => {
   event.preventDefault();
   const message = document.getElementById('message').value;
