@@ -1,20 +1,25 @@
-# VAPIDを使ったPush APIサンプルプログラム
+# Push APIのサンプルを読んでも理解できなかったで書き起こしたプログラム
 ## はじめに
 
 世の中のサンプルがいまいち理解できなかったため、自分なりに書き下したサンプルです。
 
 * ServiceWorkerを利用したPush通知サンプル
-* Firebaseを使わないでPush通知を行うサンプルです([web-push](https://github.com/web-push-libs/web-push)を使います)
+* Firebaseは使っていません
+* [web-push](https://github.com/web-push-libs/web-push)というライブラリを利用
+* curlから送信できるように、画面にコマンドを表示します(画面から送信もできます)
+
+![img2](./img/img2.png)
 
 ## 概要
 
-1. webサーバ
+1. webサーバ(express, ts-node)
     * 下記2つのhtmlを返します。
     * index.html
     * sendPush.html
     * Push通知を受け取り、EndPointに送信します。
 1. index.html
     * ServiceWorkerを登録後、Push通知を購読します(EndPoint表示)
+    * 画面にPush送信ができるcurlコマンドを表示します
 
 1. sendPush.html(Push送信メッセージ入力して、Webサーバに送信する)
     * PushメッセージWebサーバに送信　⇒ EndPointに送信　⇒ index.htmlのServiceWorkerに通知します。
@@ -46,8 +51,12 @@
   * web-push
 
 
-
 ## 利用前の準備作業
+
+パッケージのインストール
+```bash
+npm install
+```
 
 VAPID用のキーペアを生成します。`vapidKey.json`というファイル名で保存されます。
 
@@ -90,7 +99,7 @@ npm run dev
 
 ## 主要ソースの説明(ブラウザ側)
 
-### index.html
+### index.html (ServiceWorkerの登録を行い、Pushメッセージ受け取るための画面)
 
 ```html
 <!doctype html>
@@ -134,7 +143,7 @@ npm run dev
 ```
 
 
-### index.js
+### index.js (ServiceWorkerの登録を行い、Pushメッセージ受け取るための画面)
 ```js
 window.addEventListener('load', async (event) => {
   // 各種イベントハンドラを登録
@@ -265,7 +274,7 @@ const checkServiceWorkerRegistered = async () => {
 
 ```
 
-### svc_worker.js
+### svc_worker.js (Push受信を行うためのサービスワーカー)
 ```js
 // pushイベントハンドラを登録
 self.addEventListener('push', (event) => {
@@ -298,8 +307,7 @@ self.addEventListener('notificationclick', function (event) {
 ```
 
 
-### sendPush.html
-
+### sendPush.html (Push送信メッセージ入力して、Webサーバに送信するための画面)
 ```html
 <!doctype html>
 <html lang="ja">
@@ -355,7 +363,7 @@ const sendPushMessage = async (event) => {
 
 ## 主要ソース(サーバ側)
 
-### route/api/webpush.ts
+### route/api/webpush.ts (index.htmlから受け取ったPush通知用EndPointの保存と、EndPointへのPush通知を行うApi(express))
 
 ```typescript
 import express from 'express';
