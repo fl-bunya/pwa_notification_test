@@ -44,7 +44,7 @@ const registerServiceWorker = async () => {
       console.log('Service Worder is registerd', swReg);
 
       // サーバから公開キーを取得
-      const vapidPublicKey = await (await fetch('/api/vapidPublicKey')).text();
+      const vapidPublicKey = await (await fetch('http://192.168.9.251:7777/api/vapidPublicKey')).text();
 
       const options = {
         userVisibleOnly: true,
@@ -110,7 +110,7 @@ const checkServiceWorkerRegistered = async () => {
       // 購読している場合、curlでPush通知の疎通確認をするコマンドを表示する
       const jsonSub = JSON.stringify(subscription);
       const cmdArea = document.querySelector('.js-subscription-json');
-      cmdArea.textContent = `curl http://localhost:3000/api/curlPushTest -X POST -H "Content-Type: application/json" -d '${jsonSub}'`;
+      cmdArea.textContent = `curl http://192.168.9.251:7777/api/curlPushTest -X POST -H "Content-Type: application/json" -d '${jsonSub}'`;
 
       // push送信画面用にEndPointをセットする。
       //  ⇒Push送信画面を開く際、endpointをサーバに送信する。

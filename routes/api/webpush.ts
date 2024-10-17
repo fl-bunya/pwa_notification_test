@@ -1,6 +1,6 @@
 import express from 'express';
 import webPush from 'web-push';
-import vapidKey from '../../vapidKey.json'; // generateKey.tsで生成したキーペア
+import vapidKey from '../../vapidPublicKey.json'; // generateKey.tsで生成したキーペア
 
 var router = express.Router();
 
