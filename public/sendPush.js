@@ -24,5 +24,5 @@ const sendPushMessage = async (event) => {
     body: JSON.stringify({ message }),
   };
 
-  await (await fetch('http://192.168.9.251:7777/api/sendMessage', param)).text();
+  await (await fetch('https://pwa-notification-test.onrender.com/api/sendMessage', param)).text();
 };
