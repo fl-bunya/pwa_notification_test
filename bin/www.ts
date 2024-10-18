@@ -85,3 +85,19 @@ function onListening() {
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
 }
+
+// renderのsleep対策
+const URL_SERVER = `https://pwa-notification-test.onrender.com/`;
+const interval = 600000; // 10 minutes
+
+async function reloadWebsite(url) {
+  try {
+    const response = await fetch(url);
+    console.log(`Reloaded at ${new Date().toISOString()}: Status Code ${response.status}`);
+  } catch (error) {
+    const message = (error as { message?: string }).message || 'Unknown error';
+    console.error(`Error reloading at ${new Date().toISOString()}:${message}`);
+  }
+}
+
+setInterval(() => reloadWebsite(URL_SERVER), interval);
